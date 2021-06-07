@@ -6,6 +6,7 @@
   <section class="container">
     <h2>{{ user2.name }}</h2>
     <h3>{{ user2.age }}</h3>
+    <button @click="setAge">Change Age</button>
   </section>
 </template>
 
@@ -22,19 +23,23 @@ export default {
       name: "Samantha",
       age: 34
     })
+    function setNewAge(){
+      //dont forget to append .value when changing values of refs
+      otherUser.age = 32
+    }
     // const uName = ref('Maximilian');
     // const uAge = ref(31)
-    setTimeout(()=>{
-      // uName.value = 'Max',
-      // uAge.value = 35
-      // user.value.name = 'Max',
-      // user.value.age = 35,
-      otherUser.name = "Sam",
-      otherUser.age = 37
-    },2000)
+    // setTimeout(()=>{
+    //   // uName.value = 'Max',
+    //   // uAge.value = 35
+    //   // user.value.name = 'Max',
+    //   // user.value.age = 35,
+    //   otherUser.name = "Sam",
+    //   otherUser.age = 37
+    // },2000)
     //to use ref() correctly with an object, pass the object to return and then access object properties
     //inside the template for it to be reactive
-    return { user2: otherUser}
+    return { user2: otherUser, setAge: setNewAge}
   }
   // data() {
   //   return {
