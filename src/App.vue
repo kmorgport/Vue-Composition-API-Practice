@@ -4,6 +4,10 @@
     <h3>{{ user.age }}</h3>
   </section> -->
   <section class="container">
+    <user-data 
+    :first-name="firstName"
+    :last-name="lastName"
+    :age="age"></user-data>
     <h2>{{ user2.name }}</h2>
     <h3>{{ user2.age }}</h3>
     <button @click="setAge">Change Age</button>
@@ -20,8 +24,12 @@
 </template>
 
 <script>
+import UserData from './components/UserData.vue'
 import { ref, reactive, computed, watch } from 'vue';
 export default {
+  components:{
+    UserData
+  },
   setup(){
     // const user = ref({
     //   name: 'Maximilian',
@@ -84,6 +92,10 @@ export default {
 
     //<-- using refs with Composition API -- >//
     function setLastName(){
+      //can't use this.$refs
+      //must use value.value 
+      //one value for the ref()
+      //other value for the input element ref
       lastName.value = lastNameInput.value.value;
     }
     return { 
@@ -92,7 +104,8 @@ export default {
       firstName,
       lastNameInput,
       setLastName,
-      uName
+      uName,
+      lastName
        }
   }
   // data() {
