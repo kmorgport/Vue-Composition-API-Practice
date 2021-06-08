@@ -8,8 +8,9 @@
     <h3>{{ user2.age }}</h3>
     <button @click="setAge">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name" @input="setFirstName"/>
-      <input type="text" placeholder="Last Name" @input="setLastName"/>
+      <!-- v-model accepts refs and reactives -->
+      <input type="text" placeholder="First Name" v-model="firstName"/>
+      <input type="text" placeholder="Last Name" v-model="lastName"/>
     </div>
   </section>
   <section>
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 export default {
   setup(){
     // const user = ref({
@@ -36,12 +37,31 @@ export default {
       //dont forget to append .value when changing values of refs
       otherUser.age = 32
     }
-    function setFirstName(event){
-      firstName.value = event.target.value;
-    }
-    function setLastName(event){
-      lastName.value = event.target.value;
-    }
+
+    // watch(firstName, function(newValue, oldValue) {
+    //   console.log('Old name '+oldValue);
+    //   console.log("new name " + newValue)
+    // })
+
+    //when you have more than one dependency 
+
+    watch([firstName, lastName], function(newValues, oldValues){
+        console.log('Old first name '+oldValues[0]);
+        console.log("new first name " + newValues[0])
+        console.log('Old last name '+oldValues[1]);
+        console.log("new last name " + newValues[1])
+    })
+
+
+
+
+
+    // function setFirstName(event){
+    //   firstName.value = event.target.value;
+    // }
+    // function setLastName(event){
+    //   lastName.value = event.target.value;
+    // }
     //computed refs are read only. not read and write 
     const uName = computed(()=>{
       return firstName.value + ' ' + lastName.value
@@ -61,8 +81,8 @@ export default {
     return { 
       user2: otherUser,
        setAge: setNewAge,
-       setFirstName,
-       setLastName,
+      firstName,
+      lastName,
        uName
        }
   }
