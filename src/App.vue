@@ -25,7 +25,7 @@
 
 <script>
 import UserData from './components/UserData.vue'
-import { ref, reactive, computed, watch } from 'vue';
+import { ref, reactive, computed, watch, provide } from 'vue';
 export default {
   components:{
     UserData
@@ -36,6 +36,7 @@ export default {
     //   age: 31
     // }),
     //reactive() only works with objects
+    const uAge = ref(23)
     const firstName = ref('')
     const lastName = ref('')
     const lastNameInput = ref(null);
@@ -47,6 +48,11 @@ export default {
       //dont forget to append .value when changing values of refs
       otherUser.age = 32
     }
+
+
+    //<-- using provide -->
+    provide('userAge',uAge)
+
 
     // watch(firstName, function(newValue, oldValue) {
     //   console.log('Old name '+oldValue);

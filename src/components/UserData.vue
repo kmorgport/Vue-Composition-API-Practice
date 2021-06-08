@@ -1,18 +1,29 @@
 <template>
+<div>
     <h2>{{ userName }}</h2>
     <h3> {{ age }}</h3>
 </template>
 <script>
-import { computed } from 'vue';
+import { computed, inject} from 'vue';  
 export default {
+
     props: ['firstName','lastName', 'age'],
     setup(props){
         const uName = computed(function(){
             return props.firstName + ' ' + props.lastName
         })
 
+        //<-- inject -->
+        const age = inject('userAge');
+        //only change injected values in the place you provide them
+        console.log(age);
+
+
+        // context.emit('save-data',arg) //this.$emit('save-data',arg)
         return {userName: uName}
     }
+
+
     // computed: {
     //     userName(){
     //         return this.firstName + ' ' + this.lastName;
