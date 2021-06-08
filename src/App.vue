@@ -10,7 +10,8 @@
     <div>
       <!-- v-model accepts refs and reactives -->
       <input type="text" placeholder="First Name" v-model="firstName"/>
-      <input type="text" placeholder="Last Name" v-model="lastName"/>
+      <input type="text" placeholder="Last Name" ref="lastNameInput"/>
+      <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
   <section>
@@ -29,6 +30,7 @@ export default {
     //reactive() only works with objects
     const firstName = ref('')
     const lastName = ref('')
+    const lastNameInput = ref(null);
     const otherUser = reactive({
       name: "Samantha",
       age: 34
@@ -78,12 +80,19 @@ export default {
     // },2000)
     //to use ref() correctly with an object, pass the object to return and then access object properties
     //inside the template for it to be reactive
+
+
+    //<-- using refs with Composition API -- >//
+    function setLastName(){
+      lastName.value = lastNameInput.value.value;
+    }
     return { 
       user2: otherUser,
        setAge: setNewAge,
       firstName,
-      lastName,
-       uName
+      lastNameInput,
+      setLastName,
+      uName
        }
   }
   // data() {
